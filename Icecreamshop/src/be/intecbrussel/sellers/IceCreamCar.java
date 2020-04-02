@@ -23,36 +23,55 @@ public class IceCreamCar implements IceCreamSeller {
 	}
 
 	@Override
-	public Cone orderCone(Flavor[] balls) {
+	public Cone orderCone(Flavor[] balls)  {
 
 		return prepareCone(balls);
 	}
 
 	private Cone prepareCone(Flavor[] balls)  {
-		return null;
+		Cone Cone = new Cone(balls);
+		if (stock.getCones() > 0 && stock.getBalls() > balls.length) {
 		
+			profit += priceList.getBallPrice()*balls.length;
+			
+		} else {
+			System.out.println("no more ice cream in the stock");
+		}
+		return Cone;
 	}
 
 	@Override
-	public IceRocket orderIceRocket() {
+	public IceRocket orderIceRocket()  {
 
 		return prepareRocket();
 	}
 
 	private IceRocket prepareRocket() {
-		return null;
-		
+		IceRocket newIceRocket = new IceRocket();
+		if (stock.getIceRockets() > 0) {
+			profit += priceList.getRocketPrice();
+			
+		} else {
+			System.out.println("no more ice rocket");
+		}
+		return newIceRocket;
 	}
 
 	@Override
-	public Magnum orderMagnum(MagnumType type) {
+	public Magnum orderMagnum(MagnumType type)	 {
 
 		return prepareMagnum(type);
 	}
 
-	private Magnum prepareMagnum(MagnumType type)  {
-		return null;
+	private Magnum prepareMagnum(MagnumType type) 	 {
+		Magnum magnum = new Magnum(type);
+		if (stock.getMagni() > 0) {
+			profit += priceList.getMagnumStandardPrice() * type.getPrice();
 		
+		} else {
+			System.out.println("no more magnum type in stock");
+		}
+		return magnum;
 	}
 
 	@Override
@@ -60,5 +79,11 @@ public class IceCreamCar implements IceCreamSeller {
 
 		return profit;
 	}
+
+	@Override
+	public String toString() {
+		return "IceCreamCar [priceList=" + priceList + ", stock=" + stock + ", profit=" + profit + "]";
+	}
+	
 
 }
