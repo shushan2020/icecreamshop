@@ -23,33 +23,34 @@ public class IceCreamCar implements IceCreamSeller {
 	}
 
 	@Override
-	public Cone orderCone(Flavor[] balls) {
+	public Cone orderCone(Flavor[] balls) throws NoMoreIceCreamException {
 
 		return prepareCone(balls);
 	}
 
-	private Cone prepareCone(Flavor[] balls) {
+	private Cone prepareCone(Flavor[] balls) throws NoMoreIceCreamException {
 		Cone Cone = new Cone(balls);
-		try {
-			if (stock.getCones() > 0 && stock.getBalls() > balls.length) {
 
-				profit += priceList.getBallPrice() * balls.length;
-				stock.setCones(stock.getCones() - 1);
-				stock.setBalls(stock.getBalls() - 1);
-			}
-		} catch (Exception e) {
-			System.out.println("no more ice cream in the stock");
+		if (stock.getCones() > 0 && stock.getBalls() > balls.length) {
+
+			profit += priceList.getBallPrice() * balls.length;
+			stock.setCones(stock.getCones() - 1);
+			stock.setBalls(stock.getBalls() - 1);
+
+		} else {
+			throw new NoMoreIceCreamException("no more ice cream in the stock");
+			// System.out.println("no more ice cream in the stock");
 		}
 		return Cone;
 	}
 
 	@Override
-	public IceRocket orderIceRocket() {
+	public IceRocket orderIceRocket() throws NoMoreIceCreamException {
 
 		return prepareRocket();
 	}
 
-	private IceRocket prepareRocket()  {
+	private IceRocket prepareRocket() throws NoMoreIceCreamException {
 		IceRocket newIceRocket = new IceRocket();
 
 		if (stock.getIceRockets() > 0) {
@@ -59,7 +60,8 @@ public class IceCreamCar implements IceCreamSeller {
 		}
 
 		else {
-			System.out.println("no more ice rocket in the stock");
+			throw new NoMoreIceCreamException("no more ice rocket in the stock");
+			// System.out.println("no more ice rocket in the stock");
 		}
 
 		return newIceRocket;
@@ -67,25 +69,23 @@ public class IceCreamCar implements IceCreamSeller {
 	}
 
 	@Override
-	public Magnum orderMagnum(MagnumType type) {
+	public Magnum orderMagnum(MagnumType type) throws NoMoreIceCreamException {
 
 		return prepareMagnum(type);
 	}
 
-	private Magnum prepareMagnum(MagnumType type) {
+	private Magnum prepareMagnum(MagnumType type) throws NoMoreIceCreamException {
 		Magnum magnum = new Magnum(type);
-		try {
-			if (stock.getMagni() > 0) {
-				profit += priceList.getMagnumStandardPrice() * type.getPrice();
-				stock.setMagni(stock.getMagni() - 1);
-			}
-		} catch (Exception e) {
-			System.out.println("no more magnum type in stock");
+
+		if (stock.getMagni() > 0) {
+			profit += priceList.getMagnumStandardPrice() * type.getPrice();
+			stock.setMagni(stock.getMagni() - 1);
+		} else {
+			throw new NoMoreIceCreamException("no more magnum type in stock");
+			// System.out.println("no more magnum type in stock");
 
 		}
-//		else {
-//			System.out.println("no more magnum type in stock");
-//		}
+
 		return magnum;
 	}
 

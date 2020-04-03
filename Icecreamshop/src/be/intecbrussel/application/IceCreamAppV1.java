@@ -17,22 +17,12 @@ import be.intecbrussel.sellers.Stock;
 
 public class IceCreamAppV1 {
 
-	public static void main(String[] args) {
-
-//		System.out.println("list of magnum type\n");
-//		for (MagnumType type : MagnumType.values()) {
-//			// System.out.println();
-//
-//			System.out.println(type.name() + " = " + type.getPrice());
-//
-//		}
-//		System.out.println();
+	public static void main(String[] args) throws NoMoreIceCreamException {
 
 		PriceList priceList = new PriceList(2, 3, 2.24);
 
 		IceCreamSeller iceCreamSalon = new IceCreamSalon(priceList);
 
-		// System.out.println(priceList);
 		Eatable[] iceCreamEatable = new Eatable[] { new Magnum(MagnumType.MILKCHOCOLATE),
 				new Magnum(MagnumType.ALPINENUTS), new Magnum(MagnumType.BLACKCHOCOLATE),
 				new Magnum(MagnumType.ROMANTICSTRAWBERRIES), new Magnum(MagnumType.WHITECHOCOLATE),
@@ -56,9 +46,9 @@ public class IceCreamAppV1 {
 
 			}
 		}
-		
+
 		System.out.println("your order is : " + Arrays.toString(iceCream) + "\n\nyour price is : " + priceList
 				+ iceCreamSalon.getprofit());
-		
+
 	}
 }
